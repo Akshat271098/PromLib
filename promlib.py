@@ -6,7 +6,7 @@ with open("config.yaml", 'r') as stream:
 
 prometheus = "http://" + config['prometheus_source'] + "/"
 averaging_window_machine = config['averaging_window_machine']
-
+averaging_window_application =config['averaging_window_application']
 
 def machine_total(hosts):
 
@@ -186,6 +186,55 @@ def machine_average(hosts):
     result=[]
     for host in hosts:
         result.append((cpu(host), memory(host), disk(host), network(host)))
+
+    return result
+
+def application_average(app_list):
+
+    def cpu(app):
+        query='sum(avg by(cpu)  (rate(container_cpu_usage_seconds_total{{ container_label_io_kubernetes_pod_name={} }}[{}])))'.format(app,averaging_window_application)
+        #print(query)
+        response = requests.get(prometheus + '/api/v1/query', params={
+            'query': query})
+        #print(response.json())
+        results = response.json()['data']['result']
+        cpu_use=float(results[0]['value'][1])
+        return cpu_use
+
+    def memory(app):
+        query='sum(avg_over_time(container_memory_working_set_bytes{{ container_label_io_kubernetes_pod_name={} }}[{}]))/(1024^3)'.format(app,averaging_window_application)
+        #print(query)
+        response = requests.get(prometheus + '/api/v1/query', params={
+            'query': query})
+        #print(response.json())
+        results = response.json()['data']['result']
+        memory_use=float(results[0]['value'][1])
+        return memory_use
+
+    def disk(app):
+        query='sum(avg_over_time(container_fs_usage_bytes{{ container_label_io_kubernetes_pod_name = {} }}[{}])) / (1024^3)'.format(app,averaging_window_application)
+        response = requests.get(prometheus + '/api/v1/query', params={
+            'query': query})
+        # print(response.json())
+        results = response.json()['data']['result']
+        disk_use = float(results[0]['value'][1])
+        return disk_use
+    def network(app):
+        query='(sum(avg(rate(container_network_transmit_bytes_total{{ container_label_io_kubernetes_pod_name={},interface=~"eth0|ens.*" }}[{}])))' \
+              '+ sum(avg(rate(container_network_receive_bytes_total{{ container_label_io_kubernetes_pod_name={},interface=~"eth0|ens.*" }}[{}])))) * 8 / (10^9)'\
+            .format(app,averaging_window_application,app,averaging_window_application)
+        #print(query)
+        response = requests.get(prometheus + '/api/v1/query', params={
+            'query': query})
+        #print(response.json())
+        results = response.json()['data']['result']
+        network_use=float(results[0]['value'][1])
+        return network_use
+
+    result=[]
+    for app in app_list:
+        app="'" + app + "'"
+        result.append((cpu(app),memory(app),disk(app),network(app)))
 
     return result
 
