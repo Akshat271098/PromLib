@@ -11,7 +11,7 @@ averaging_window_application =config['averaging_window_application']
 def machine_total(hosts):
 
     def cpu(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = 'count(count(node_cpu_seconds_total{{ instance={} }}) by (cpu))'.format(host_node)
         # print(query)
         response = requests.get(prometheus + '/api/v1/query', params={
@@ -22,7 +22,7 @@ def machine_total(hosts):
         return cores
 
     def memory(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = ' node_memory_MemTotal_bytes{{ instance={}  }} / (1024^3)'.format(host_node)
         # print(query)
         response = requests.get(prometheus + '/api/v1/query', params={
@@ -33,7 +33,7 @@ def machine_total(hosts):
         return mem
 
     def disk(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = 'sum(node_filesystem_size_bytes{{ instance={},device!~"rootfs" }}) / (1024^3)'.format(
             host_node)
         # print(query)
@@ -45,7 +45,7 @@ def machine_total(hosts):
         return space
 
     def network(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = 'node_network_speed_bytes{{ instance={} }} * 8/(10^9)'.format(host_node)
         # print(query)
         response = requests.get(prometheus + '/api/v1/query', params={
@@ -67,7 +67,7 @@ def machine_total(hosts):
 def machine_current(hosts):
 
     def cpu(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = '100 - 100 * avg by (instance) (irate(node_cpu_seconds_total{{ mode="idle",instance={} }} [1m]))'.format(
             host_node)
         # print(query)
@@ -81,7 +81,7 @@ def machine_current(hosts):
         return cpu_use
 
     def memory(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = ' node_memory_MemAvailable_bytes{{ instance={}  }} / (1024^3)'.format(host_node)
         # print(query)
         response = requests.get(prometheus + '/api/v1/query', params={
@@ -92,7 +92,7 @@ def machine_current(hosts):
         return mem
 
     def disk(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = 'sum(node_filesystem_avail_bytes{{ instance={},device!~"rootfs" }})/ (1024^3)'.format(
             host_node)
         # print(query)
@@ -104,7 +104,7 @@ def machine_current(hosts):
         return space
 
     def network(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = '(irate(node_network_receive_bytes_total{{ instance={},device!="lo" }}[1m])' \
                 '+ irate(node_network_transmit_bytes_total{{ instance={},device!="lo" }}[1m])) *8/ (10^9)'.format(
             host_node, host_node)
@@ -130,7 +130,7 @@ def machine_current(hosts):
 def machine_average(hosts):
 
     def cpu(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = '(1 - avg(rate(node_cpu_seconds_total{{ mode="idle",instance={} }} [{}])) by ( instance )) *100'.format(
             host_node, averaging_window_machine)
         # print(query)
@@ -144,7 +144,7 @@ def machine_average(hosts):
         return cpu_use
 
     def memory(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = ' sum(avg_over_time(node_memory_MemAvailable_bytes{{ instance={}  }}[{}]) /(1024^3))'.format(
             host_node, averaging_window_machine)
         # print(query)
@@ -156,7 +156,7 @@ def machine_average(hosts):
         return mem
 
     def disk(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = 'sum(avg_over_time(node_filesystem_avail_bytes{{ instance={},device!~"rootfs" }}[{}])) /(1024^3)'.format(
             host_node, averaging_window_machine)
         # print(query)
@@ -168,7 +168,7 @@ def machine_average(hosts):
         return space
 
     def network(host):
-        host_node = '"' + host + ':9100"'
+        host_node = '"' + host + '"'
         query = '(avg by (device) (rate(node_network_receive_bytes_total{{ instance={},device!="lo" }} [{}]))' \
                 '+ avg by (device) (rate(node_network_transmit_bytes_total{{ instance={},device!="lo" }} [{}])))* 8 /(10^9)'.format(
             host_node,averaging_window_machine, host_node,averaging_window_machine)
