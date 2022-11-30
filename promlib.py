@@ -1,6 +1,7 @@
 import yaml
 import requests
 
+
 with open("config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
