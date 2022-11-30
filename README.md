@@ -10,7 +10,8 @@ The promlib module has the following functions which provide the following resul
 
 The prometheus source and the window size for average resouce utilization of hosts and the application can be configure in the config.yaml file.
 
-_host_list_ is the list of ip(s) of the target hosts/VMs whose resource state need to obtained.
+_host_list_ is the list of ip(s) of the target hosts/VMs whose resource state need to obtained. The target address is of the form "ip:port".
+
 _app_id_list_ is the list of pod id(s) whose resource utilization need to be obtained.
 
 The tuples returned are of the format:
