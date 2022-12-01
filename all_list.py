@@ -19,12 +19,15 @@ def get_all_machine_id():
     return machine_list
 
 def get_all_app_list():
-    query = ' (kube_pod_status_ready!=0)'
-    # print(query)
+    query ='group by (container_label_io_kompose_service)( container_tasks_state{container_label_io_kompose_service!~""})'
+    #print(query_temp)
     response = requests.get(prometheus + '/api/v1/query', params={
-        'query': query})
+            'query': query})
+    #print(response.json())
     results = response.json()['data']['result']
+    #print(results)
     app_list=[]
-    for i in results:
-        app_list.append(i['metric']['pod'])
+    for idx in results:
+            pod=idx['metric']['container_label_io_kompose_service']
+            app_list.append(pod)
     return app_list
