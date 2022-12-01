@@ -420,7 +420,7 @@ def application_quantile(app_list):
         #print(results)
         for idx in results:
             pod=idx['metric']['container_label_io_kubernetes_pod_name']
-            print(pod)
+            #print(pod)
             pod="'" + pod + "'"
             cpu_use+=cpu(pod)
             memory_use+=memory(pod)
