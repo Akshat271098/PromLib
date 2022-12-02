@@ -1,0 +1,4 @@
+host_list:
+  # - "10.16.70.237:9103"
+  - "sirius.cds.iisc.ac.in"
+  - "bibha.cds.iisc.ac.in"
