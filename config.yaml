@@ -1,4 +1,4 @@
-prometheus_source: "192.168.150.128:9090"
+prometheus_source: "10.24.24.29:9090"
 
 machine_window: "10m"
 
