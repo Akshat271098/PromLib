@@ -25,7 +25,7 @@ def get_all_app_list():
             'query': query})
     #print(response.json())
     results = response.json()['data']['result']
-    #print(results)
+    # print(results)
     app_list=[]
     for idx in results:
             pod=idx['metric']['container_label_io_kompose_service']

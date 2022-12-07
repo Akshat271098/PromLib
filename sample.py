@@ -5,7 +5,7 @@ import all_list
 print("\nAll available machines:\n")
 print(all_list.get_all_machine_id())
 
-print("\nMaximum resources machine tuples:\n")
+print("\nAll available apps:\n")
 print(all_list.get_all_app_list())
 
 #get usages
