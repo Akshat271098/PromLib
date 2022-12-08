@@ -1,5 +1,6 @@
 import promlib
 import all_list
+import auto_deploy
 
 #list all machines and apps
 print("\nAll available machines:\n")
@@ -28,4 +29,7 @@ print(promlib.application_average(app_list))
 print("\nQuantile resources application tuples:\n")
 print(promlib.application_quantile(app_list))
 
+#deployment example
+auto_deploy.deploy('vm-4',['consul','user'],'test')
+auto_deploy.clear_namespace('test')
 
