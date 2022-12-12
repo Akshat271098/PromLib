@@ -6,7 +6,7 @@ import yaml
 
 
 
-with open("config.yaml", 'r') as stream:
+with open("../config.yaml", 'r') as stream:
     config = yaml.safe_load(stream)
 
 def deploy(vm_selected,app_list,namespace):
@@ -30,7 +30,7 @@ def deploy(vm_selected,app_list,namespace):
                 file_list.append(file)
     print('Files related to these deployments:\n',file_list,'\n')
 
-    str='cd ~/hotelReservation/kubernetes/\n'
+    str='cd ~/hotelReservation-deployment-1/kubernetes/\n'
 
     for i in vm_list:
         if vm_selected!=i:

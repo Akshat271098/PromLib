@@ -7,14 +7,16 @@ with open("config.yaml", 'r') as stream:
 prometheus = "http://" + config['prometheus_source'] + "/"
 
 def get_all_machine_id():
-    query = 'group by (instance) (node_load5!=0)'
+    query = 'group by (instance,job) (node_load5!=0)'
     # print(query)
     response = requests.get(prometheus + '/api/v1/query', params={
         'query': query})
     results = response.json()['data']['result']
+    #print(results)
     machine_list=[]
     for i in results:
-        machine_list.append(i['metric']['instance'])
+        if i['metric']['job']== 'Kubernetes VMs GPU nodes':
+            machine_list.append(i['metric']['instance'])
     #print(machine_list)
     return machine_list
 
