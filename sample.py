@@ -30,11 +30,13 @@ print(promlib.application_quantile(app_list))
 
 
 #deployment example
-promlib.deploy('vm-1',['profile', 'mongodb-rate', 'rate', 'user','mongodb-recommendation', 'memcached-reserve'],'deathstar-deploy')
-promlib.deploy('vm-2',['memcached-profile', 'mongodb-profile', 'search', 'jaeger', 'frontend','mongodb-user', 'reservation'],'deathstar-deploy')
-promlib.deploy('vm-3',['recommendation', 'geo', 'consul', 'memcached-rate', 'mongodb-reservation','mongodb-geo'],'deathstar-deploy')
+#promlib.deploy('10.24.24.131',['profile', 'mongodb-rate', 'rate', 'user','mongodb-recommendation', 'memcached-reserve'],'deathstar-deploy')
+#promlib.deploy('10.24.24.132',['memcached-profile', 'mongodb-profile', 'search', 'jaeger', 'frontend','mongodb-user', 'reservation'],'deathstar-deploy')
+#promlib.deploy('vm-3',['recommendation', 'geo', 'consul', 'memcached-rate', 'mongodb-reservation','mongodb-geo'],'deathstar-deploy')
 
 promlib.clear_namespace('deathstar-deploy')
 
 '''['profile', 'mongodb-rate', 'rate', 'user', 'memcached-profile', 'mongodb-profile', 'search', 'jaeger', 'frontend', 'recommendation', 'geo', 'consul', 'memcached-rate', 'mongodb-reservation'
     , 'mongodb-recommendation', 'memcached-reserve', 'mongodb-user', 'reservation', 'mongodb-geo']'''
+
+

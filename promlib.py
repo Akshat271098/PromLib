@@ -435,7 +435,7 @@ def application_quantile(app_list):
         result.append((cpu_use,memory_use,disk_use,network_use))
     return result
 
-def deploy(vm_selected,app_list,namespace):
+def deploy(vm_select,app_list,namespace):
     print('Deployment started... \n ')
     rootdir = "./deathstar"
     regex_str=''
@@ -446,7 +446,7 @@ def deploy(vm_selected,app_list,namespace):
     #print(regex_str)
     regex = re.compile(regex_str)
 
-
+    vm_dict={'10.24.24.131':'vm-1','10.24.24.132':'vm-2','10.24.24.133':'vm-3','10.24.24.134':'vm-4'}
     vm_list = ['vm-1', 'vm-2', 'vm-3', 'vm-4']
     file_list = []
 
@@ -456,7 +456,8 @@ def deploy(vm_selected,app_list,namespace):
                 file_list.append(file)
     print('Files related to these deployments:\n',file_list,'\n')
 
-    str='cd ~/hotelReservation-deployment-1/kubernetes/\n'
+    str='cd ~/hotelReservation-deployment/kubernetes/\n'
+    vm_selected=vm_dict[vm_select]
 
     for i in vm_list:
         if vm_selected!=i:
@@ -473,8 +474,6 @@ def deploy(vm_selected,app_list,namespace):
     str+='kubectl get pods --all-namespaces -o wide --field-selector spec.nodeName={} | grep {}'.format(vm_selected,namespace)
 
     #print(str)
-
-
 
     ssh = pk.SSHClient()
     ssh.set_missing_host_key_policy(pk.AutoAddPolicy())
