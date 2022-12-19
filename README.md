@@ -45,6 +45,10 @@ The units used (in order as in tuple):
     
 See and run sample.py to see how to pass hosts/application with respective ids and use the functions present in promlib to get resource availabiliry/utilization. 
 
+all_list.py is a sample code to list all available machines for placements and list of apps to get placed. It has 2 functions:
+
+    get_all_machine_id() : Returns list of available machines for placement.
+    get_all_app_list() : Returns list of available apps/pods in a given kubernetes deployment space (to be placed).
 
 Apart from this there is also an app.py which has a swagger UI documentation over Flask API to visualize output from deployment runs samples. Solver_test.py is a sample program to use the solver (with an integrated end to end use shown in app.py) after its setup as given.
 
