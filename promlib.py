@@ -446,8 +446,8 @@ def deploy(vm_select,app_list,namespace):
     #print(regex_str)
     regex = re.compile(regex_str)
 
-    vm_dict={'10.24.24.131':'vm-1','10.24.24.132':'vm-2','10.24.24.133':'vm-3','10.24.24.134':'vm-4'}
-    vm_list = ['vm-1', 'vm-2', 'vm-3', 'vm-4']
+    vm_dict={'10.24.24.131':'vm-1','10.24.24.132':'vm-2','10.24.24.133':'vm-3','10.24.24.134':'vm-4','10.24.24.135':'vm-5','10.24.24.136':'vm-6'}
+    vm_list = ['vm-1', 'vm-2', 'vm-3', 'vm-4','vm-5','vm-6']
     file_list = []
 
     for root, dirs, files in os.walk(rootdir):
