@@ -8,6 +8,8 @@ The promlib module has the following functions which provide the following resul
     machine_average(_host_list_) : A list of tuples (one tuple per host) that contains current machine resource state by averaging over specified window.
     appication_average(_app_id_list_) : A list of tuples (one tuple per app) that contains application average resource usage over the specified window.
     application_quantile(_app_id_list_) : A list of tuples (one tuple per app) that contains application x-th percentile resource usage over the specified window.
+    deploy(_host_id_,_app_id_list_,_namespace_) : A sample deployment function that helps deploy pods of deathstar benchmark's pods on to the hosts as returened by the solver algoruithm.
+    clear_namespace(_namespace_) : A sample function to clear the specified namespace inside kubernetes deployment space.
 
 _host_list_ is the list of ip(s) of the target hosts/VMs whose resource state need to obtained. 
     
@@ -24,6 +26,8 @@ Additionally, there is a config.yaml file with following configurable parameters
     app_scrape_interval : The scrape interval (in seconds) of application level metrics as specified in prometheus.yaml config of prometheus source. Eg.: "5s", "15s" ,etc.
     application_window : Time window over which the average or quantile value for app resource statistsics is to be calculated. Eg.: "10m", "300s", etc.
     app_metric_percentile: The percentile value for application resource's quantile statistics calculation. Eg. "0.99", "0.95" , etc.
+    k8s_control_plane : The control plane <ip> where we want a sample kubernetes based deployment as per outputs from the solver.
+    solver_source : <ip:port> for the host where the dolver algorithm is up and running.
 
 
 
@@ -41,4 +45,6 @@ The units used (in order as in tuple):
     
 See and run sample.py to see how to pass hosts/application with respective ids and use the functions present in promlib to get resource availabiliry/utilization. 
 
+
+Apart from this there is also an app.py which has a swagger UI documentation over Flask API to visualize output from deployment runs samples. Solver_test.py is a sample program to use the solver (with an integrated end to end use shown in app.py) after its setup as given.
 
